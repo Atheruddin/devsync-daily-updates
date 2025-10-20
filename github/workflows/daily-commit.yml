@@ -1,0 +1,39 @@
+# A descriptive name for your workflow
+name: Automated Daily Update
+
+on:
+  # This enables you to run the workflow manually from the Actions tab
+  workflow_dispatch:
+
+  # This sets up the schedule
+  schedule:
+    # Runs at 02:30 UTC every day. This fulfills the "specific hours/minutes" requirement.
+    - cron: '30 2 * * *'
+
+jobs:
+  daily_commit_job:
+    runs-on: ubuntu-latest
+    
+    steps:
+      # Step 1: Check out the repository's code so the workflow can work with it
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      # Step 2: A step with the required email in its name
+      - name: Record update for 24f1001023@ds.study.iitm.ac.in
+        run: echo "Preparing to commit for the daily log."
+
+      # Step 3: Configure git, create a change, and commit it
+      - name: Create a daily commit
+        run: |
+          # Configure the git user that will be the author of the commit
+          git config --global user.name "DevSync Daily Bot"
+          git config --global user.email "bot@devsync.example.com"
+          
+          # Append the current date to a log file. This creates a change.
+          echo "Log entry for $(date)" >> daily-log.txt
+          
+          # Add the changed file, commit it, and push it to the repository
+          git add daily-log.txt
+          git commit -m "Automated daily update: $(date)"
+          git push
