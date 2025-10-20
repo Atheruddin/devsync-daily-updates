@@ -1,16 +1,13 @@
 name: Automated Daily Update
 
 on:
-  # THIS LINE IS CRUCIAL FOR THE "RUN WORKFLOW" BUTTON TO APPEAR
   workflow_dispatch:
-
   schedule:
     - cron: '30 2 * * *'
 
 jobs:
   daily_commit_job:
     runs-on: ubuntu-latest
-    
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
