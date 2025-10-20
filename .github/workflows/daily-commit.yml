@@ -7,6 +7,10 @@ on:
 
 jobs:
   daily_commit_job:
+    # This block grants the necessary permissions for the job
+    permissions:
+      contents: write
+    
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
