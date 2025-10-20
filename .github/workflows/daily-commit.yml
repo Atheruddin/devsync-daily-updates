@@ -3,11 +3,10 @@ name: Automated Daily Update
 on:
   workflow_dispatch:
   schedule:
-    - cron: '30 2 * * *'
+    - cron: '30 2 * * *'  # Runs daily at 02:30 UTC
 
 jobs:
   daily_commit_job:
-    # This block grants the necessary permissions for the job
     permissions:
       contents: write
     
@@ -16,13 +15,13 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
-      - name: Record update for 24f1001023@ds.study.iitm.ac.in
+      - name: Record update for 24f1000999@ds.study.iitm.ac.in
         run: echo "Preparing to commit for the daily log."
 
       - name: Create a daily commit
         run: |
           git config --global user.name "DevSync Daily Bot"
-          git config --global user.email "bot@devsync.example.com"
+          git config --global user.email "24f1000999@ds.study.iitm.ac.in"
           echo "Log entry for $(date)" >> daily-log.txt
           git add daily-log.txt
           git commit -m "Automated daily update: $(date)"
